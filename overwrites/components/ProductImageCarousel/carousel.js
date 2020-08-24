@@ -65,10 +65,11 @@ const ProductImageCarousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let image;
+    // simi customize image
     if (currentImage.file) {
         image = (
             <Image
-                alt={altText}
+                alt={altText || 'product-image'}
                 classes={{
                     image: classes.currentImage,
                     root: classes.imageContainer
@@ -78,23 +79,24 @@ const ProductImageCarousel = props => {
                 height="auto"
             />
         );
-    } else if(currentImage.url) {
+    } // end customize
+    else if(currentImage.url) {
         image = (
             <Image
-                alt={altText}
+                alt={altText || 'product-image'}
                 classes={{
                     image: classes.currentImage,
                     root: classes.imageContainer
                 }}
                 src={currentImage.url}
                 width={IMAGE_WIDTH}
-                height
+                height="auto"
             />
         );
     } else {
         image = (
             <Image
-                alt={altText}
+                alt={altText || 'product-image'}
                 classes={{
                     image: classes.currentImage_placeholder,
                     root: classes.imageContainer

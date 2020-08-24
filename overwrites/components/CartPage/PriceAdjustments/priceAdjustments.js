@@ -41,9 +41,12 @@ const PriceAdjustments = props => {
                 <Section id={'gift_options'} title={'See Gift Options'}>
                     <GiftOptions />
                 </Section>
-                <InjectComponents
+                <InjectComponents 
                     module={GIFTCARD_MODULE}
                     func={'GiftCardOptionsCoupon'}
+                    parentProps={{
+                        setIsCartUpdating
+                    }}
                 />
                 {existModuleRewardPoint &&
                     existModuleRewardPoint.FormRewardPoint &&

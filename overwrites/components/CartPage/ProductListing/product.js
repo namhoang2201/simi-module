@@ -11,7 +11,7 @@ import Section from '@magento/venia-ui/lib/components/MiniCart/section';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import Image from '@magento/venia-ui/lib/components/Image';
 import defaultClasses from './product.css';
-import { CartPageFragment } from '../cartPageFragments.gql';
+import { CartPageFragment } from '@magento/venia-ui/lib/components/CartPage/cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '@magento/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 
 // import customize 

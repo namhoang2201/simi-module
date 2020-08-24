@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { object, shape, string } from 'prop-types';
-import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
+import { useOrderConfirmationPage } from '../../../talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Title } from '@magento/venia-ui/lib/components/Head';

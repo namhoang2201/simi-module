@@ -5,9 +5,11 @@
     grid-template-columns: 100px 1fr min-content;
 }
 
+/* simi customize */
 .rootCartPage {
     grid-area: giftcard;
 }
+/* end customize */
 
 .imageContainer {
     grid-area: image;

@@ -48,20 +48,23 @@ const Thumbnail = props => {
             return null;
         }
 
+        // simi customize thumnail 
         if(thumbnail) {
             return (
                 <Image
-                    alt={alt}
+                    alt={alt || 'thumbnail-image' }
                     classes={{ image: classes.image }}
                     height={DEFAULT_THUMBNAIL_HEIGHT}
                     src={thumbnail}
                     width={DEFAULT_THUMBNAIL_WIDTH}
                 />
             )
-        } else if(file) {
+        } 
+        // end customize
+        else if(file) {
             return (
                 <Image
-                    alt={label}
+                    alt={label || 'thumnail-image'}
                     classes={{ image: classes.image }}
                     height={DEFAULT_THUMBNAIL_HEIGHT}
                     resource={file}
@@ -72,7 +75,7 @@ const Thumbnail = props => {
 
         return (
             <Image
-                alt={label}
+                alt={label || 'thumnail-image'}
                 classes={{ image: classes.image }}
                 src={transparentPlaceholder}
             />

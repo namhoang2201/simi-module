@@ -159,10 +159,13 @@ export const useCreditCard = props => {
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
     const initialValues = useMemo(() => {
-        const isBillingAddressSame = isBillingAddressSameData
+        let isBillingAddressSame = false;
+        if(shippingAddressData && shippingAddressData.cart.shippingAddresses.length && shippingAddressData.cart.shippingAddresses.length > 0) {
+            console.log(isBillingAddressSameData)
+            isBillingAddressSame = isBillingAddressSameData
             ? isBillingAddressSameData.cart.isBillingAddressSame
-            : true;
-
+            : true; 
+        }
         let billingAddress = {};
         /**
          * If billing address is same as shipping address, do
@@ -180,7 +183,7 @@ export const useCreditCard = props => {
         }
 
         return { isBillingAddressSame, ...billingAddress };
-    }, [isBillingAddressSameData, billingAddressData]);
+    }, [isBillingAddressSameData, billingAddressData, shippingAddressData]);
 
     const errors = useMemo(() => {
         const errors = [];

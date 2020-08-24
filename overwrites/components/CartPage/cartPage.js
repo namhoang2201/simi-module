@@ -11,7 +11,7 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '@magento/venia-ui/lib/components/CartPage/cartPage.css';
-import { GET_CART_DETAILS } from './cartPage.gql';
+import { GET_CART_DETAILS } from '@magento/venia-ui/lib/components/CartPage/cartPage.gql';
 // customize
 import { useRestCart } from '../../talons/CartPage/useRestCart';
 // end customize

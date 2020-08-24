@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { bool, number, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import Checkout from '../Checkout';
+import Checkout from '@magento/venia-ui/lib/components/Checkout';
 import CheckoutButton from '@magento/venia-ui/lib/components/Checkout/checkoutButton';
 
 import defaultClasses from '@magento/venia-ui/lib/components/MiniCart/footer.css';

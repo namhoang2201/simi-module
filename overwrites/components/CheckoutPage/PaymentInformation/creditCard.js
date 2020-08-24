@@ -31,7 +31,7 @@ const CreditCard = props => {
         onDropinReady: onReady,
         onPaymentError: onError,
         resetShouldSubmit,
-        shouldSubmit
+        shouldSubmit,
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);

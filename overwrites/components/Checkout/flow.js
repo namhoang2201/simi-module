@@ -15,8 +15,10 @@ import CREATE_CART_MUTATION from '@magento/venia-ui/lib/queries/createCart.graph
 
 import defaultClasses from '@magento/venia-ui/lib/components/Checkout/flow.css';
 
-// nam customize
+// simi customize
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import injectedAction from '../../../inject/injectedAction' 
+import {GIFTCARD_MODULE} from '../../../util/checkedPlugin'
 // end customize
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -72,6 +74,21 @@ const Flow = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    // simi customize
+    const giftCardCheckoutProps = injectedAction({
+        module: GIFTCARD_MODULE,
+        func: 'useGiftCardCheckOut',
+    }) || {}
+
+    const {
+        handleRedirectCheckout,
+        checkGiftCartVitrualType
+    } = giftCardCheckoutProps
+
+    const isGiftCardVitrualProduct = checkGiftCartVitrualType && checkGiftCartVitrualType()
+    const customClick = isGiftCardVitrualProduct ? handleRedirectCheckout : handleBeginCheckout
+    // end customize
+
     let child;
     switch (step) {
         case 'cart': {
@@ -79,7 +96,7 @@ const Flow = props => {
                 <div className={classes.footer}>
                     <CheckoutButton
                         disabled={checkoutDisabled}
-                        onClick={handleBeginCheckout}
+                        onClick={customClick}
                     />
                 </div>
             );

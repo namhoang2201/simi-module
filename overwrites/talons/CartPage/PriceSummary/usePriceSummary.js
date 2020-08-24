@@ -30,10 +30,12 @@ export const usePriceSummary = props => {
     const [{ cartId }] = useCartContext();
     const history = useHistory();
     // We don't want to display "Estimated" or the "Proceed" button in checkout.
+    // simi customize route
     const path = window.location.pathname;
     // const match = useRouteMatch('/checkout');
     const match = path.includes('/checkout')
     const isCheckout = !!match;
+    // end customize
 
     const { error, loading, data } = useQuery(getPriceSummary, {
         skip: !cartId,
@@ -52,12 +54,15 @@ export const usePriceSummary = props => {
         history.push('/checkout');
     }, [history]);
 
+    // simi customize: add 2 fields prices and cartId
     return {
         handleProceedToCheckout,
         hasError: !!error,
         hasItems: data && !!data.cart.items.length,
         isCheckout,
         isLoading: !!loading,
-        flatData: flattenData(data)
+        flatData: flattenData(data),
+        prices: details.prices,
+        cartId
     };
 };

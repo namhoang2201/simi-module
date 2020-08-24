@@ -71,13 +71,11 @@ const ProductFullDetail = props => {
         }
     });
 
-    let customAddToCardDisable = isAddToCartDisabled;
-    if (giftCardProps && giftCardProps.isProductGiftCart)
-        customAddToCardDisable = false;
+    let customAddToCardDisable = isAddToCartDisabled
+    if(giftCardProps && giftCardProps.isProductGiftCard && !giftCardProps.isAddGiftCardProductLoading) customAddToCardDisable = false
 
-    let customHandleAddToCart = handleAddToCart;
-    if (giftCardProps && giftCardProps.handleAddProductGiftCartToCart)
-        customHandleAddToCart = giftCardProps.handleAddProductGiftCartToCart;
+    let customHandleAddToCart = handleAddToCart
+    if(giftCardProps && giftCardProps.isProductGiftCard && giftCardProps.handleAddProductGiftCartToCart) customHandleAddToCart = giftCardProps.handleAddProductGiftCartToCart
 
     const classes = mergeClasses(defaultClasses, props.classes);
 

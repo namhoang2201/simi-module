@@ -15,8 +15,10 @@ import defaultClasses from '@magento/venia-ui/lib/components/MiniCart/product.cs
 import ProductOptions from '@magento/venia-ui/lib/components/MiniCart/productOptions';
 import Section from '@magento/venia-ui/lib/components/MiniCart/section';
 
+//custom import 
 import InjectedComponents from '../../../inject/injectedComponent';
 import {GIFTCARD_MODULE} from '../../../util/checkedPlugin'
+// end custom import
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
@@ -64,7 +66,41 @@ const Product = props => {
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
-    
+      // custom gift card
+      const customProductPrice = useMemo(() => {
+        if(item.prices && item.prices.price && item.prices.price.value) {
+            return item.prices.price.value
+        }
+
+        return productPrice
+    }, [item, productPrice])
+
+    const discounts = useMemo(() => {
+        if(item.prices && item.prices.discounts && item.prices.discounts.length && item.prices.discounts.length > 0) {
+            const discounts = item.prices.discounts
+            return discounts.map((item, index) => {
+                const {amount} = item
+                return (
+                    <div className={classes.quantity} style={{padding: '2px 0'}} key={index}>
+                         <div className={classes.quantityRow} >
+                            <span>{item.label}</span>
+                            <span>{': -'}</span>
+                            <span className={classes.price}>
+                                <Price
+                                    currencyCode={amount.currency}
+                                    value={amount.value}
+                                />
+                            </span>
+                        </div>
+                    </div>
+                   
+                )
+            })
+        }
+
+        return null
+    }, [classes, item])
+    // end custom gift card
 
     return (
         <li className={classes.root}>

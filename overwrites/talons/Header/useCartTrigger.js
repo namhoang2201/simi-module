@@ -14,11 +14,6 @@ export const useCartTrigger = props => {
     const apolloClient = useApolloClient();
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
-    
-    // customize use giftcard query
-    // const checkModuleGiftCard = checkModule(GIFTCARD_MODULE)
-
-    // console.log(checkModuleGiftCard)
 
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',

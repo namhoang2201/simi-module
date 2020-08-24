@@ -14,10 +14,11 @@ const sortImages = (images = []) =>
 export const useCarousel = (images = [], startIndex = 0) => {
     const [activeItemIndex, setActiveItemIndex] = useState(startIndex);
 
+    // simi customize: remove useMemo for sortImages
     // const sortedImages = useMemo(() => sortImages(images), [images]);
-    // console.log('run')
     const sortedImages = sortImages(images);
-
+    //end customize
+    
     const handlePrevious = useCallback(() => {
         // If we're on the first image we want to go to the last.
         setActiveItemIndex(prevIndex => {

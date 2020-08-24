@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
@@ -28,6 +28,9 @@ import defaultClasses from '@magento/venia-ui/lib/components/CheckoutPage/checko
 
 // customize
 import { useRestCart } from '../../talons/CartPage/useRestCart';
+import injectedAction from '../../../inject/injectedAction' 
+import InjectedComponent from '../../../inject/injectedComponent'
+import {GIFTCARD_MODULE} from '../../../util/checkedPlugin'
 // end customize
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
@@ -69,6 +72,19 @@ const CheckoutPage = props => {
         toggleActiveContent
     } = talonProps;
 
+    // giftcard customize
+    const giftCardCheckoutProps = injectedAction({
+        module: GIFTCARD_MODULE,
+        func: 'useGiftCardCheckOut',
+    }) || {}
+
+    const {
+        checkGiftCartVitrualType
+    } = giftCardCheckoutProps
+
+    const isGiftCardVitrual = checkGiftCartVitrualType && checkGiftCartVitrualType()
+    // end customize
+
     const [, { addToast }] = useToasts();
 
     // reward customize
@@ -103,6 +119,14 @@ const CheckoutPage = props => {
             }
         }
     }, [addToast, error, hasError]);
+
+    // giftcard customize
+    useEffect(() => {
+        if(!isGuestCheckout && isGiftCardVitrual) {
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT)
+        }
+    }, [isGuestCheckout, isGiftCardVitrual])
+    // end customize
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -144,18 +168,23 @@ const CheckoutPage = props => {
             </div>
         ) : null;
 
-        const shippingMethodSection =
-            checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
-                <ShippingMethod
-                    pageIsUpdating={isUpdating}
-                    onSave={setShippingMethodDone}
-                    setPageIsUpdating={setIsUpdating}
-                />
-            ) : (
-                <h3 className={classes.shipping_method_heading}>
-                    {'2. Shipping Method'}
-                </h3>
-            );
+        // giftcard customize
+        let shippingMethodSection = null;
+        if(!isGiftCardVitrual) {
+            shippingMethodSection =
+                checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
+                    <ShippingMethod
+                        pageIsUpdating={isUpdating}
+                        onSave={setShippingMethodDone}
+                        setPageIsUpdating={setIsUpdating}
+                    />
+                ) : (
+                    <h3 className={classes.shipping_method_heading}>
+                        {'2. Shipping Method'}
+                    </h3>
+                );
+        }
+        // end customize
 
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
@@ -211,7 +240,29 @@ const CheckoutPage = props => {
                     {'Place Order'}
                 </Button>
             ) : null;
-
+        // giftcard customize
+        const shippingInformation = 
+            !isGiftCardVitrual ? (
+                <div className={classes.shipping_information_container}>
+                    <ShippingInformation
+                        onSave={setShippingInformationDone}
+                        toggleActiveContent={toggleActiveContent}
+                    />
+                </div>
+            ) : (
+                isGuestCheckout ? <div className={classes.shipping_information_container}>
+                    <InjectedComponent 
+                        module={GIFTCARD_MODULE} 
+                        func="ShippingInfoGiftCardVitrual"
+                        parentProps={{
+                            setCheckoutStep,
+                            checkOutStep: CHECKOUT_STEP
+                        }}
+                    />
+                </div> : null
+            )
+        // end customize
+        
         // If we're on mobile we should only render price summary in/after review.
         const shouldRenderPriceSummary = !(
             isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
@@ -242,12 +293,7 @@ const CheckoutPage = props => {
                         {guestCheckoutHeaderText}
                     </h1>
                 </div>
-                <div className={classes.shipping_information_container}>
-                    <ShippingInformation
-                        onSave={setShippingInformationDone}
-                        toggleActiveContent={toggleActiveContent}
-                    />
-                </div>
+                {shippingInformation}
                 <div className={classes.shipping_method_container}>
                     {shippingMethodSection}
                 </div>
