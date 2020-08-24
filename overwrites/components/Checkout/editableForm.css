@@ -1,0 +1,42 @@
+.root {
+  align-content: start;
+  animation-duration: 224ms;
+  animation-iteration-count: 1;
+  animation-name: flow-enter-1me;
+  background-color: white;
+  bottom: 0;
+  box-shadow: 0 -1px rgb(224, 224, 224);
+  display: block;
+  grid-gap: 0.5rem;
+  left: 0;
+  max-height: calc(100vh - 8.5rem);
+  padding: 0 1.5rem;
+  padding-top: 1rem;
+  right: 0;
+  position: absolute;
+}
+
+.heading {
+  composes: heading from "./flow.css";
+}
+
+.body {
+  align-content: start;
+  animation-duration: 224ms;
+  animation-iteration-count: 1;
+  animation-name: flow-enter-wEw;
+  background-color: white;
+  bottom: 5rem;
+  box-shadow: 0 -1px rgb(var(--venia-border));
+  display: block;
+  left: 0;
+  max-height: calc(100vh - 8.5rem);
+  overflow: auto;
+  padding: 0 1.5rem 0 1.5rem;
+  position: absolute;
+  right: 0;
+}
+
+.footer {
+  composes: footer from "./flow.css";
+}

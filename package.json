@@ -1,0 +1,19 @@
+{
+    "name": "@simicart/simi-module",
+    "version": "1.0.0",
+    "description": "",
+    "author": "Simicart",
+    "license": "MIT",
+    "main": "./index.js",
+    "pwa-studio": {
+      "targets": {
+        "intercept": "intercept.js"
+      }
+    },
+    "peerDependencies": {
+        "@magento/pwa-buildpack": "*",
+        "@magento/venia-ui": "*",
+        "react": "~16.9.0",
+        "react-router-dom": "~5.1.0"
+    }
+  }
