@@ -27,7 +27,7 @@ export const usePriceSummary = props => {
         queries: { getPriceSummary }
     } = props;
 
-    const [{ cartId }] = useCartContext();
+    const [{ cartId, details }] = useCartContext();
     const history = useHistory();
     // We don't want to display "Estimated" or the "Proceed" button in checkout.
     // simi customize route

@@ -51,6 +51,8 @@ const PriceSummary = (props) => {
     isCheckout,
     isLoading,
     flatData,
+    prices,
+    cartId
   } = talonProps;
 
   if (hasError) {
