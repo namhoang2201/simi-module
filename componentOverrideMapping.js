@@ -1,6 +1,5 @@
 module.exports = componentOverrideMapping = {
     [`@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.js`]: './overwrites/components/ProductFullDetail/productFullDetail.js',
-    [`@magento/venia-ui/lib/RootComponents/Product/index.js`]: './overwrites/RootComponents/Product/index.js',
     [`@magento/venia-ui/lib/components/ProductImageCarousel/carousel.js`]: './overwrites/components/ProductImageCarousel/carousel.js',
     [`@magento/peregrine/lib/hooks/useCarousel.js`]: './overwrites/hooks/useCarousel.js',
     [`@magento/venia-ui/lib/components/Header/cartTrigger.js`]: './overwrites/components/Header/cartTrigger.js',
