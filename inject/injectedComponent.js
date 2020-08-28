@@ -4,11 +4,24 @@ import {checkPlugin} from '../util/checkedPlugin'
     
 const InjectedComponents = ({ module, func, parentProps }) => {
     const loadModule = checkPlugin(module);
+
     if(loadModule && loadModule[func]) {
+        const talonProps = loadModule.useStoreview && loadModule.useStoreview()
+
+        const {data, load} = talonProps
         const LoadedComponent = loadModule[func]
+
+        if(load) {
+            return (
+                <LoadingIndicator />
+            );
+        }
+
+        if(data && data.active === 0) {
+            return null
+        }
         
-        
-        return <LoadedComponent {...parentProps} />
+        return <LoadedComponent {...parentProps} storeConfig={data}/>
     }
 
     return null;
