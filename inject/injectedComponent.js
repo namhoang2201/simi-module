@@ -17,7 +17,7 @@ const InjectedComponents = ({ module, func, parentProps }) => {
             );
         }
 
-        if(data && data.active === 0) {
+        if(data && !data.active) {
             return null
         }
         
