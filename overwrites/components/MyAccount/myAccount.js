@@ -7,10 +7,11 @@ import AccountLink from './accountLink';
 import defaultClasses from './myAccount.css';
 import { useMyAccount } from '@magento/peregrine/lib/talons/MyAccount/useMyAccount';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
-require('./index.scss');
+// require('./index.scss');
 // customize
 import {
     REWARDPOINT_MODULE,
+    GIFTCARD_MODULE,
     checkPlugin
 } from '@simicart/simi-module/util/checkedPlugin';
 import InjectedComponents from '@simicart/simi-module/inject/injectedComponent';
@@ -71,6 +72,10 @@ const MyAccount = props => {
                         {REWARD_POINT}
                     </AccountLink>
                 )}
+                <InjectedComponents
+                    module={GIFTCARD_MODULE}
+                    func={'GiftCardCustomerMenu'}
+                />
                 <AccountLink onClick={handleSignOut}>
                     <SignOutIcon size={18} />
                     {SIGN_OUT}

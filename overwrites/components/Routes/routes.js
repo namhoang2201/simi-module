@@ -9,6 +9,7 @@ import MagentoRoute from '../MagentoRoute';
 import InjectedComponents from '@simicart/simi-module/inject/injectedComponent';
 import {
     REWARDPOINT_MODULE,
+    GIFTCARD_MODULE,
     checkPlugin
 } from '@simicart/simi-module/util/checkedPlugin';
 // rewardpoint customize

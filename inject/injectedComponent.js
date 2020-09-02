@@ -8,7 +8,7 @@ const InjectedComponents = ({ module, func, parentProps }) => {
     if(loadModule && loadModule[func]) {
         const talonProps = loadModule.useStoreview && loadModule.useStoreview()
 
-        const {data, load} = talonProps
+        const {active, data, load} = talonProps
         const LoadedComponent = loadModule[func]
 
         if(load) {
@@ -17,7 +17,7 @@ const InjectedComponents = ({ module, func, parentProps }) => {
             );
         }
 
-        if(data && !data.active) {
+        if(!active) {
             return null
         }
         

@@ -5,6 +5,13 @@ import {
     NOT_FOUND,
     useMagentoRoute
 } from '@magento/peregrine/lib/talons/MagentoRoute';
+import {
+    REWARDPOINT_MODULE,
+    GIFTCARD_MODULE,
+    checkPlugin
+} from '@simicart/simi-module/util/checkedPlugin';
+
+import InjectedComponents from '@simicart/simi-module/inject/injectedComponent';
 
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 
@@ -17,11 +24,26 @@ const MagentoRoute = () => {
     const { component: RootComponent, id, isLoading, routeError } = talonProps;
     const path = window.location.pathname;
     const listCustomRoute = [
-        '/cart', '/checkout', '/rewardpoint', '/pointTransactions',
+        '/cart', '/checkout', '/rewardpoint', '/pointTransactions', '/my-giftcard'
     ]
+
+    if(path === '/my-giftcard') {
+        const module = checkPlugin(GIFTCARD_MODULE) 
+        if(module && module['MyGiftCard']) {
+            return <InjectedComponents 
+                module={GIFTCARD_MODULE}
+                func="MyGiftCard"
+            />
+        } else {
+            <ErrorView>
+                <h1>{MESSAGES.get(routeError)}</h1>
+            </ErrorView>
+        }
+    }
     if (listCustomRoute.includes(path) || path.includes('/pointTransactionDetail')) {
         return null;
     }
+  
     if (isLoading) {
         return fullPageLoadingIndicator;
     } else if (RootComponent) {
