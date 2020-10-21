@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types';
 import Logo from '@magento/venia-ui/lib/components/Logo';
 import { Link, resourceUrl, Route } from '@magento/venia-drivers';
 
+import AccountTrigger from '@magento/venia-ui/lib/components/Header/accountTrigger';
 import CartTrigger from '@magento/venia-ui/lib/components/Header/cartTrigger';
 import NavTrigger from '@magento/venia-ui/lib/components/Header/navTrigger';
 import SearchTrigger from '@magento/venia-ui/lib/components/Header/searchTrigger';
@@ -11,20 +12,13 @@ import OnlineIndicator from '@magento/venia-ui/lib/components/Header/onlineIndic
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './header.css';
-import PageLoadingIndicator from '@magento/venia-ui/lib/components//PageLoadingIndicator';
-import { ShoppingBag as ShoppingBagIcon } from 'react-feather';
+import defaultClasses from '@magento/venia-ui/lib/components/Header/header.css';
+import PageLoadingIndicator from '@magento/venia-ui/lib/components/PageLoadingIndicator';
 
-const SearchBar = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/SearchBar')
-);
+import {positionComponent} from '../../../util/position'
+import * as constants from '../../../constant/Components'
 
-// customize
-import { REWARDPOINT_MODULE } from '../../../util/checkedPlugin';
-import InjectedComponents from '@simicart/simi-module/inject/injectedComponent';
-import { getDataFromStoreage } from '../../../util/storeData';
-require('./header.scss');
-// end customize
+const SearchBar = React.lazy(() => import('@magento/venia-ui/lib/components/SearchBar'));
 
 const Header = props => {
     const {
@@ -54,56 +48,30 @@ const Header = props => {
     const pageLoadingIndicator = isPageLoading ? (
         <PageLoadingIndicator />
     ) : null;
-
-    // customize
-    const storeConfig = getDataFromStoreage('SESSION_STOREAGE', 'STORE_CONFIG');
-    let sw_point_header = false;
-    if (
-        storeConfig &&
-        storeConfig.hasOwnProperty('bssRewardPointStoreConfig') &&
-        storeConfig.bssRewardPointStoreConfig.hasOwnProperty('sw_point_header')
-    ) {
-        sw_point_header =
-            storeConfig.bssRewardPointStoreConfig.sw_point_header === '1'
-                ? true
-                : false;
-    }
-    // end customize
-
+    console.log(positionComponent(constants.HEADER, 54))
     return (
         <header className={rootClass}>
+            
+            {positionComponent(constants.HEADER, 54)}
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
-                    {pageLoadingIndicator}
                 </div>
+                {pageLoadingIndicator}
                 <OnlineIndicator
                     hasBeenOffline={hasBeenOffline}
                     isOnline={isOnline}
                 />
-                {sw_point_header ? (
-                    <InjectedComponents
-                        module={REWARDPOINT_MODULE}
-                        func={'PointHeader'}
-                        parentProps={{
-                            classes: classes
-                        }}
-                    />
-                ) : (
-                    <Link to={resourceUrl('/cart')}>
-                        <ShoppingBagIcon size={18} />
-                    </Link>
-                )}
-
-                <CartTrigger />
+                <Link to={resourceUrl('/')}>
+                    <Logo classes={{ logo: classes.logo }} />
+                </Link>
                 <div className={classes.secondaryActions}>
-                    <Link to={resourceUrl('/')}>
-                        <Logo classes={{ logo: classes.logo }} />
-                    </Link>
                     <SearchTrigger
                         active={searchOpen}
                         onClick={handleSearchTriggerClick}
                     />
+                    <AccountTrigger />
+                    <CartTrigger />
                 </div>
             </div>
             {searchBar}
